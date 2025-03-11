@@ -1,21 +1,20 @@
 import axios from 'axios';
 import { getHeaderAndParams } from '../Utils/common-util.jsx';
 
-export const getData=async(formData,jsonText,paramsData,headerData)=>{
-    const apiType=formData.type.toLowerCase();
-    const apiUrl=formData.url.toLowerCase();
-    const apiHeader=getHeaderAndParams(headerData);
-    const apiParams=getHeaderAndParams(paramsData);
+export const getData = async (formData, jsonText, paramsData, headerData) => {
     try {
-       return await axios({
-            method:apiType,
-            url:apiUrl,
-            body:jsonText,
-            headers:apiHeader,
-            params:apiParams
-        })
+        const response = await axios({
+            method: formData.type.toLowerCase(),
+            url: formData.url.trim(), // Trim in case of extra spaces
+            data: jsonText ? JSON.parse(jsonText) : {}, // Ensure valid JSON
+            headers: getHeaderAndParams(headerData),
+            params: getHeaderAndParams(paramsData),
+        });
+
+        // console.log("API Response:", response); // Debugging
+        return response.data; // Ensure returning correct data
     } catch (error) {
-        console.log("Error while calling getData API",error);
+        // console.error("Error while calling getData API:", error);
         return ["error",error];
     }
-}
+};

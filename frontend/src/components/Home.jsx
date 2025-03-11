@@ -25,14 +25,13 @@ const Home = () => {
       }
 
       let response = await getData(formData,jsonText,paramsData,headerData);
-      
       if(response[0]==='error'){
         setErrorResObj(response[1]);
         setErrorRes(true);
         return;
       }else{
         setErrorRes(false);
-        setApiRes(response.data);
+        setApiRes(response);
         setErrorResObj(null);
       }
 

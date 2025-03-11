@@ -19,7 +19,7 @@ const AddRow = ({ addRows, rowId, data, setData }) => {
         });
 
         addRows(prev => (!checkBox ? [...prev, rowId] : prev.filter(id => id !== rowId)));
-        console.log(data)
+        // console.log(data)
     };
 
     const onTextChange = (e) => {
